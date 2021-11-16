@@ -34,6 +34,7 @@ struct Vertex {
 template<typename TV, typename TE>
 class Graph{
     protected:    
+        int edgesSize = 0;
         unordered_map<string, Vertex<TV, TE>*>  vertexes;
         
     public:

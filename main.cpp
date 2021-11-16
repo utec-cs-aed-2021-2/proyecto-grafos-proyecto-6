@@ -31,20 +31,28 @@ int main(int argc, char *argv[]) {
     dgraph->deleteVertex("a");
     cout<<"test"<<endl;
 
+
+
     dgraph->deleteEdge("c","b");
+    //dgraph->deleteEdge("b","c");
+    //dgraph->displayVertex("b");
+    
+    cout<<dgraph->operator()("b", "d")<<endl;///
     //int temp = dgraph->operator()("b", "d");
     //cout<<dgraph->operator()("b", "d")<<endl;
-    /*
-    dgraph->displayVertex("b");
-  */  
-    /*
+    
+    //dgraph->displayVertex("b");
+    
+    
     cout<<"Density: "<<dgraph->density()<<endl;
     //Tester::executeExamples();
     //Tester::executeParser();
     cout<<"is Dense? : "<<dgraph->isDense(0.3)<<endl;
-    cout<<"is Connected? : "<<dgraph->isConnected()<<endl;
+    
+    //cout<<"is Connected? : "<<dgraph->isConnected()<<endl;
     cout<<"vacio? : "<<dgraph->empty()<<endl;
     dgraph->clear();
-    cout<<"vacio? : "<<dgraph->empty()<<endl;*/
+    cout<<"vacio? : "<<dgraph->empty()<<endl;
+    dgraph->display();
     return EXIT_SUCCESS;
 }

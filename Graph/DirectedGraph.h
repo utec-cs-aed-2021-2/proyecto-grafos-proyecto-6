@@ -4,9 +4,7 @@
 #include "graph.h"
 #include <queue>
 template<typename TV, typename TE>
-class DirectedGraph : public Graph<TV, TE>{
-    private:
-        int edgesSize = 0;
+class DirectedGraph : public Graph<TV, TE>{        
     public:
         bool insertVertex(string id, TV vertex);   
         bool createEdge(string id1, string id2, TE w);     
@@ -53,7 +51,7 @@ bool DirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w) {
     newEdge->weight = w;
 
     this->vertexes[id1]->edges.push_back(newEdge);
-    edgesSize++;
+    this->edgesSize++;
 
     return true; 
 }
@@ -91,7 +89,7 @@ bool DirectedGraph<TV, TE>::deleteEdge(string id1, string id2) {
                 //auto ad = *it;
                 this->vertexes[id1]->edges.remove(it);
                 //delete ad;
-                edgesSize--;
+                this->edgesSize--;
             }
         }
         return true;
