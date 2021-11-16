@@ -2,6 +2,7 @@
 #define UNDIRECTEDGRAPH_H
 
 #include "graph.h"
+#include "../Graph/Algorithms/dfs.h"
 
 template<typename TV, typename TE>
 class UnDirectedGraph : public Graph<TV, TE>{
@@ -14,8 +15,8 @@ class UnDirectedGraph : public Graph<TV, TE>{
         TE &operator()(string start, string end);  
         float density();
         bool isDense(float threshold = 0.5);
-        bool isConnected() {return true;};
-        bool isStronglyConnected() {return true;};
+        bool isConnected();
+        bool isStronglyConnected();
         bool empty();
         void clear();  
         void displayVertex(string id);
@@ -230,5 +231,24 @@ void UnDirectedGraph<TV, TE>::clear() {
 
     }
 }
+
+template<typename TV, typename TE>
+bool UnDirectedGraph<TV, TE>::isConnected()
+{
+    DFS<TV, TE> dfs(this, this->vertexes.begin()->first);
+    auto vector = dfs.apply_dfs();
+    if(vector.size() == this->vertexes.size())
+        return true;
+
+    return false;
+}
+
+template<typename TV, typename TE>
+bool UnDirectedGraph<TV, TE>::isStronglyConnected(){
+    throw("No Aplica");
+}
+
+
+
 
 #endif

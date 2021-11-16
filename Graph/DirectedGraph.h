@@ -2,7 +2,9 @@
 #define NONDIRECTEDGRAPH_H
 
 #include "graph.h"
+#include "../Graph/Algorithms/dfs.h"
 #include <queue>
+
 template<typename TV, typename TE>
 class DirectedGraph : public Graph<TV, TE>{        
     public:
@@ -131,38 +133,18 @@ bool DirectedGraph<TV, TE>::isDense(float threshold) {
 template<typename TV, typename TE>
 bool DirectedGraph<TV, TE>::isConnected(){
 
-    std::queue<Vertex<TV, TE>*> q;
-    std::unordered_map<Vertex<TV, TE>*, bool> visited;
-    for(auto &v : this->vertexes){
-        visited[v.second] = false;
-    }
-    for(auto &v : this->vertexes){
-        if(!visited[v.second]){
-            q.push(v.second);
-            visited[v.second] = true;
-            while(!q.empty()){
-                Vertex<TV, TE> *v = q.front();
-                q.pop();
-                for(auto &e : v->edges){
-                    if(!visited[e->vertexes[1]]){
-                        visited[e->vertexes[1]] = true;
-                        q.push(e->vertexes[1]);
-                    }
-                }
-            }
-        }
-    }
-    for(auto &v : visited){
-        if(!v.second)
-            return false;
-    }
-    return true;
+    return false;
 }
 
 template<typename TV, typename TE>
 bool DirectedGraph<TV, TE>::isStronglyConnected() {
-
-    return true;
+    for(auto it = this->vertexes.begin(); it != this->vertexes.end(); it++) {
+        DFS<TV, TE> dfs2(this, it->first);
+        auto vector = dfs2.apply_dfs();
+        if(vector.size() != this->vertexes.size())
+            return false;
+    }
+     return true;
 }
 
 template<typename TV, typename TE>

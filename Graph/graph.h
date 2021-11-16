@@ -4,7 +4,6 @@
 #include <list>
 #include <vector>
 #include <unordered_map>
-
 using namespace std;
 
 template<typename TV, typename TE>
@@ -53,6 +52,9 @@ class Graph{
         virtual void displayVertex(string id)= 0;
         virtual bool findById(string id) = 0;
         virtual void display() = 0;
+        unordered_map<string, Vertex<TV, TE>*> getVertexes(Graph<TV, TE>* graph){return graph->vertexes;}
 };
+
+
 
 #endif
