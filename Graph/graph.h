@@ -26,6 +26,7 @@ struct Edge {
 
 template<typename TV, typename TE>
 struct Vertex {
+    string id;
     TV data;
     list<Edge<TV, TE>*> edges;
 };

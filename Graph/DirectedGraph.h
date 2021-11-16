@@ -31,7 +31,8 @@ bool DirectedGraph<TV, TE>::insertVertex(string id, TV vertex) {
 
     if (this->findById(id))
         return false;
-    
+
+    newVertex->id = id;
     newVertex->data = vertex;
     newVertex->edges;//revisar si se debe inicializar
     this->vertexes[id] = newVertex;
@@ -79,44 +80,22 @@ bool DirectedGraph<TV, TE>::deleteVertex(string id){
     this->vertexes.erase(id);
     return true;
 }
-/*
-template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::deleteVertex(string id) {
-    if (this->findById(id)) {
-        
-        list<Edge<TV, TE>*> edges = this->vertexes[id]->edges;
-        for (auto edge=edges.begin(); edge!=edges.end(); edge++){
-            delete *edge;
-        }
-        this->vertexes.erase(id); 
-
-        for (auto& vertex:this->vertexes) {
-            auto edgesList = vertex.second->edges;
-            for (auto it=edgesList.begin(); it!=edgesList.end(); it++) {
-                if (*it->vertexes[1] == this->vertexes[id]){
-                    auto temp = *it;
-                    *edgesList.erase(it);
-                    delete temp;
-                }
-            }
-        }
-        return true; 
-
-    } else return false; 
-}*/
 
 template<typename TV, typename TE>
 bool DirectedGraph<TV, TE>::deleteEdge(string id1, string id2) {
     if (findById(id1)) {
         list<Edge<TV, TE>*> edges = this->vertexes[id1]->edges;
-        for (auto it= edges.begin(); it!=edges.end(); it++){
-            if ((*it)->vertexes[1] == this->vertexes[id2]){
-                auto ad = *it;
-                edges.erase(it);
-                delete ad;
+        cout<<"s"<<endl;
+        for (auto &it : edges){
+            if ((*it).vertexes[1] == this->vertexes[id2]){
+                //auto ad = *it;
+                this->vertexes[id1]->edges.remove(it);
+                //delete ad;
+                edgesSize--;
             }
         }
-        edgesSize--;
+        return true;
+        
 
     } else return false;
 }
@@ -135,35 +114,20 @@ TE &DirectedGraph<TV, TE>::operator()(string start, string end) {
 }
 
 template<typename TV, typename TE>
-void DirectedGraph<TV, TE>::displayVertex(string id) {
-    if (findById(id)){
-        Vertex<TV, TE>* vertex = this->vertexes[id];
-        cout<<"ID: " << id <<endl;
-        cout<<"Data: " << vertex->data <<endl;
-        cout<<"N Edges: "<< this->vertexes[id]->edges.size()<<endl;
+float DirectedGraph<TV, TE>::density() {
+    if( empty() ) throw "Graph is empty";
 
-        cout<<"Edges: { ";
-        list<Edge<TV, TE>*> edges = this->vertexes[id]->edges;
-        
-        for (auto it = edges.begin(); it!=edges.end(); it++) {
-            cout<<"("<< (*it)->weight << ") ";
-            //cout<<"("<< (*it)->vertexes[0]->data <<", "<< (*it)->vertexes[1]->data << "), ";
-        }
-        cout<<" }"<<endl;
+    float E = 0.0, V = 0.0;
 
-    } else
-        throw("ERROR: The vertex does not exist");         
+    E = this->edgesSize;
+    V = this->vertexes.size();
+
+    return E/(V*(V-1));
 }
 
 template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::findById(string id) {
-    return !(this->vertexes.find(id) == this->vertexes.end()); 
-}
-
-
-template<typename TV, typename TE>
-void DirectedGraph<TV, TE>::display() {
-
+bool DirectedGraph<TV, TE>::isDense(float threshold) {
+    return (this->density() >= threshold);
 }
 
 template<typename TV, typename TE>
@@ -198,30 +162,9 @@ bool DirectedGraph<TV, TE>::isConnected(){
 }
 
 template<typename TV, typename TE>
-void DirectedGraph<TV, TE>::clear(){
+bool DirectedGraph<TV, TE>::isStronglyConnected() {
 
-    for(auto &v : this->vertexes){
-        delete v.second;
-    }
-    this->vertexes.clear();
-
-}
-
-template<typename TV, typename TE>
-float DirectedGraph<TV, TE>::density() {
-    if( empty() ) throw "Graph is empty";
-
-    int E = 0, V = 0;
-
- 
-    E = this->edgesSize;
-    V = this->vertexes.size();
-    return E/(V*(V-1));
-}
-
-template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::isDense(float threshold) {
-    return density() >= threshold ? true : false;
+    return true;
 }
 
 template<typename TV, typename TE>
@@ -230,8 +173,48 @@ bool DirectedGraph<TV, TE>::empty() {
 }
 
 template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::isStronglyConnected() {
+void DirectedGraph<TV, TE>::clear(){
+    for (auto &v : this->vertexes) {
+        auto edgesList = v.second->edges;
+        for (auto &e : edgesList) {
+            delete e;
+        }
+    }
+    this->vertexes.clear();
+    this->edgesSize = 0;
 
-    return true;
 }
+
+template<typename TV, typename TE>
+void DirectedGraph<TV, TE>::displayVertex(string id) {
+    if (findById(id)){
+        Vertex<TV, TE>* vertex = this->vertexes[id];
+        cout<<"ID: " << id <<endl;
+        cout<<"Data: " << vertex->data <<endl;
+        cout<<"N Edges: "<< this->vertexes[id]->edges.size()<<endl;
+
+        cout<<"Edges: { ";
+        list<Edge<TV, TE>*> edges = this->vertexes[id]->edges;
+        
+        for (auto it = edges.begin(); it!=edges.end(); it++) {
+            cout<<"("<< (*it)->weight << ") ";
+            //cout<<"("<< (*it)->vertexes[0]->data <<", "<< (*it)->vertexes[1]->data << "), ";
+        }
+        cout<<" }"<<endl;
+
+    } else
+        throw("ERROR: The vertex does not exist");         
+}
+
+template<typename TV, typename TE>
+bool DirectedGraph<TV, TE>::findById(string id) {
+    return !(this->vertexes.find(id) == this->vertexes.end()); 
+}
+
+
+template<typename TV, typename TE>
+void DirectedGraph<TV, TE>::display() {
+
+}
+
 #endif
