@@ -194,7 +194,19 @@ bool DirectedGraph<TV, TE>::findById(string id) {
 
 template<typename TV, typename TE>
 void DirectedGraph<TV, TE>::display() {
-
+    cout << "________________________________________________" <<endl;
+    for (auto it = this->vertexes.begin(); it != this->vertexes.end(); it++) {
+        cout<<"ID: " << (*it).first <<endl;
+        cout<<"Data: " << (*it).second->data <<endl;
+        cout<<"Edges: { ";
+        list<Edge<TV, TE>*> edges = (*it).second->edges;
+        for (auto it = edges.begin(); it!=edges.end(); it++) {
+            cout<<"("<< (*it)->vertexes[0]->id <<", "<< (*it)->vertexes[1]->id << "), ";
+        }
+        cout<<" }"<<endl;
+        cout<<endl;
+    }
+    cout << "________________________________________________" <<endl;
 }
 
 #endif
