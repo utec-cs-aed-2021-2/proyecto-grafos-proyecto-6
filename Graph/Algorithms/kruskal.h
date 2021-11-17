@@ -20,7 +20,7 @@ class Kruskal {
         DisjoinSet<Vertex<TV, TE> *>* ds;
         
         unordered_map<Vertex<TV, TE>*, int> vertexesIndex;
-        vector< pair<TE, Edge<TV, TE>*>> edges;
+        vector< pair<TE, Edge<TV, TE>*> > edges;
 
 
         Kruskal(UnDirectedGraph<TV, TE>& graph) {
