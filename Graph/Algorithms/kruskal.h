@@ -5,8 +5,8 @@
 #include <algorithm>
 #include <vector>       
 
-#include "../../disjointset-noerato14/ds.h"
-#include "../../disjointset-noerato14/dsarray.h"
+#include "../../disjointset/ds.h"
+#include "../../disjointset/dsarray.h"
 #include "../graph.h"
 #include "../UndirectedGraph.h"
 
