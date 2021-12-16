@@ -5,8 +5,9 @@
 #include "Graph/Algorithms/dfs.h"
 #include "Graph/Algorithms/kruskal.h"
 #include "Graph/Algorithms/prim.h"
+#include "Graph/Algorithms/astar.h"
 //#include "Tester/tester.h"
-//#include "Parser/parser.h"
+#include "Parser/parser.h"
 
 using namespace std;
 
@@ -140,5 +141,68 @@ int main(int argc, char *argv[]) {
     if (resultPRIM.isConnected()) cout<<"Sí";
     else cout<<"No";
     cout << endl;
+
+/*
+    cout<<"Gaaa"<<endl;
+    Parser newParser = Parser();
+    
+    UnDirectedGraph<string, double> airportGraph = UnDirectedGraph<string, double>();
+    newParser.readJSON("./Parser/Data/pe.json");
+    newParser.uGraphMake(airportGraph);
+    airportGraph.display();
+*/
+
+    cout <<"\n\n\n"<<endl;
+
+    cout << "================================================" <<endl;
+    cout << "A STAR"<<endl;
+    cout << "================================================" <<endl;
+
+    Graph<int, float> *ugraph = new UnDirectedGraph<int, float>;
+    //Creación del Grafo
+    ugraph->insertVertex("A", 0);
+    ugraph->insertVertex("B", 1);
+    ugraph->insertVertex("C", 2);
+    ugraph->insertVertex("D", 3);
+    ugraph->insertVertex("E", 4);
+    ugraph->insertVertex("F", 5);
+    ugraph->insertVertex("G", 6);
+    ugraph->insertVertex("H", 7);
+    ugraph->insertVertex("I", 8);
+    ugraph->insertVertex("J", 9);
+
+    ugraph->createEdge("A", "B", 6);
+    ugraph->createEdge("A", "F", 6);
+    ugraph->createEdge("B", "D", 2);
+    ugraph->createEdge("B", "C", 3);
+    ugraph->createEdge("C", "D", 1);
+    ugraph->createEdge("C", "E", 5);
+    ugraph->createEdge("D", "E", 8);
+    ugraph->createEdge("E", "I", 5);
+    ugraph->createEdge("E", "J", 5);
+    ugraph->createEdge("J", "I", 3);
+    ugraph->createEdge("G", "I", 3);
+    ugraph->createEdge("G", "F", 1);
+    ugraph->createEdge("H", "I", 2);
+    ugraph->createEdge("H", "F", 7);
+
+
+    unordered_map<string, float> heuristic;
+        heuristic["A"] = 10;
+        heuristic["B"] = 8;
+        heuristic["C"] = 5;
+        heuristic["D"] = 7;
+        heuristic["E"] = 3;
+        heuristic["F"] = 6;
+        heuristic["G"] = 5;
+        heuristic["H"] = 3;
+        heuristic["I"] = 1;
+        heuristic["J"] = 0;
+
+    Astar<int, float>* AStar = new Astar<int, float>(ugraph,"A","J", heuristic);
+
+    AStar->display_path();
+
+    AStar->apply()->display();
     return EXIT_SUCCESS;
 }

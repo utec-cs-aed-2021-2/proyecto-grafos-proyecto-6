@@ -60,9 +60,15 @@ bool UnDirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w) {
     newEdge->weight = w;
 
     this->vertexes[id1]->edges.push_back(newEdge);
-    this->vertexes[id2]->edges.push_back(newEdge);
+
+    auto *newEdge1 = new Edge<TV, TE>;
+    newEdge1->vertexes[1] = this->vertexes[id1];
+    newEdge1->vertexes[0] = this->vertexes[id2];
+    newEdge1->weight = w;
+
+    this->vertexes[id2]->edges.push_back(newEdge1);
     this->edgesSize++;
-    return true; 
+    return true;
 }
 
 template<typename TV, typename TE>
