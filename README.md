@@ -65,9 +65,37 @@ UndirectedGraph<char, int> result = kruskal.apply();//return a tree
 Prim<char, int> prim(&graph, "A");
 UndirectedGraph<char, int> result = prim.apply();//return a tree
 
+//Given the graph
+UnDirectedGraph<char, int> *graph = new UnDirectedGraph<char, int>;
+
 //3- A *
-AStar<char, int> astar(&graph, "A", "Z", vector<int> heuristics);
-UndirectedGraph<char, int> result = astar.apply();
+unordered_map<string, double> heuristic;
+Astar<string, double>* AStar = new Astar<string, double>(graph,"A","Z", heuristic);
+UndirectedGraph<char, int> result = AStar->apply();
+
+//Given the graph
+Graph<char, int> *graph = new DirectedGraph<char, int>;
+
+//4- BFS
+BFS<char, int> bfs(graph, "A");
+vector<Vertex<TV, TE> *> result = bfs.apply_bfs();
+
+//5- DFS
+DFS<char, int> dfs(graph, "A");
+vector<Vertex<TV,TE>*> result = dfs.apply_dfs();
+
+//6- Bellman Ford
+Bellman_Ford<char, int>* bellF = new Bellman_Ford<char, int>(graph, "A");
+bellF->apply();
+bellF->display();
+
+//Given the graph
+DirectedGraph<char, int> *graph = new DirectedGraph<char, int>; 
+
+//7- Floyd Warshall 
+floyd_warshall<char, int>* floyd = new floyd_warshall<char, int>(graph);
+floyd->display();
+
 
 ```
 
