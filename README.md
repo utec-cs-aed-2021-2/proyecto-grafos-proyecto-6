@@ -9,8 +9,8 @@
 - Fabio Torres
 
 ----
-## Alcance entrega Proyecto 1
-Se implementaron todas las funciones internas para los grafos dirigos y no dirigidos. Además se implementaron todos los algoritmos pedidos BFS,DFS, PRIM y Kruskal.
+## Alcance del Proyecto
+Se implementaron todas las funciones internas para los grafos dirigos y no dirigidos. Además se implementaron todos los algoritmos pedidos A*, Dijkstra, Floyd–Warshall, Bellman-Ford, Best First Search, BFS, DFS, PRIM y Kruskal.
 La función display por el momento muestra las lista de adyacencia de cada grafo.
 * Las pruebas de las funciones y algoritmos se hicieron directamente en el main.
 
@@ -22,9 +22,9 @@ El proyecto del curso consiste en implementar una estructura de datos de grafo y
 
 ## Graph data structure
 
-* El grafo debe ser dinámico (inserciones. eliminaciones, búsquedas, ...)
-* Se debe implementar los dos tipos de grafos: dirigidos y no-dirigidos.
-* No considerar loops ni multi-arista. 
+* El grafo es dinámico
+* Se Implemento dos tipos de grafos: dirigidos y no-dirigidos.
+* No considera loops ni multi-arista. 
 
 
 ### Methods:
