@@ -29,70 +29,70 @@ El proyecto del curso consiste en implementar una estructura de datos de grafo y
 
 ### Methods:
 ```cpp
-bool insertVertex(string id, V data); // Creates a new vertex in the graph with some data and an ID
+bool insertVertex(string id, V data); // Crea un nuevo vertice en el grafo con data y un ID
 
-bool createEdge(string start, string end, E data); // Creates a new edge in the graph with some data
+bool createEdge(string start, string end, E data); // Crea un nuevo arista en el grafo
 
-bool deleteVertex(string id); // Deletes a vertex in the graph
+bool deleteVertex(string id); // Elimina el vertice identificado por id
 
-bool deleteEdge(string start, string end); // Deletes an edge in the graph, it is not possible to search by the edge value, since it can be repeated
+bool deleteEdge(string start, string end); // Elimina una arista del grafo
 
-E &operator()(string start, string end); // Gets the value of the edge from the start and end vertexes
+E &operator()(string start, string end); // Obtiene el valor de la arista  de id start y end
 
-float density() const; // Calculates the density of the graph
+float density() const; // Calcula la densidad del grafo
 
-bool isDense(float threshold = 0.5) const; // Calculates the density of the graph, and determine if it is dense dependening on a threshold value
+bool isDense(float threshold = 0.5) const; // Determina si el grafo es denso, dependiendo del threshold de entrada
 
-bool isConnected(); // Detect if the graph is connected
+bool isConnected(); // Detecta si el grafo es conexo
 
-bool isStronglyConnected() throw(); // Detect if the graph is strongly connected (only for directed graphs)
+bool isStronglyConnected() throw(); // Detecta si el grafo es fuertemente conexo (solo para grafos directos)
 
-bool empty(); // If the graph is empty
+bool empty(); // Si el grafo esta vacío
 
-void clear(); // Clears the graph
+void clear(); // Limpia el grafo
 ```
 
 ### Algorithms:
 ```cpp
-//Given the graph
+//Dado el grafo
 UndirectedGraph<char, int> graph;
 
-//1- Generates a MST graph using the Kruskal approach (only for undirected graphs)
+//1- Genera un grafo con un  arbol de expansion minima(MST)  usando el algoritmo Kruskal (solo para grafos no dirigidos)
 Kruskal<char, int> kruskal(&graph);
-UndirectedGraph<char, int> result = kruskal.apply();//return a tree
+UndirectedGraph<char, int> result = kruskal.apply();//retorna el MST como grafo
 
-//2- Generates a MST graph using the Prim approach (only for undirected graphs)
+//2- Genera un grafo con un  arbol de expansion minima(MST)  usando el algoritmo Prim (solo para grafos no dirigidos)
 Prim<char, int> prim(&graph, "A");
-UndirectedGraph<char, int> result = prim.apply();//return a tree
+UndirectedGraph<char, int> result = prim.apply();//retorna el MST como grafo
 
-//Given the graph
+//Dado el grafo
 UnDirectedGraph<char, int> *graph = new UnDirectedGraph<char, int>;
 
-//3- A *
+//3- Genera el camino más corto entre dos vertices usando el algoritmo A*
 unordered_map<string, double> heuristic;
 Astar<string, double>* AStar = new Astar<string, double>(graph,"A","Z", heuristic);
 UndirectedGraph<char, int> result = AStar->apply();
 
-//Given the graph
+//Dado el grafo
 Graph<char, int> *graph = new DirectedGraph<char, int>;
 
-//4- BFS
+//4- Genera un Vector con los elementos recorridos de un grafo segun el algoritmo de busqueda BFS
 BFS<char, int> bfs(graph, "A");
 vector<Vertex<TV, TE> *> result = bfs.apply_bfs();
 
-//5- DFS
+//5- Genera un Vector con los elementos recorridos de un grafo segun el algoritmo de busqueda DFS
 DFS<char, int> dfs(graph, "A");
 vector<Vertex<TV,TE>*> result = dfs.apply_dfs();
 
-//6- Bellman Ford
+//6- Genera un hash donde el key es el id de cada vertice y cada key apunta a una lista ordenada con el camino minimo desde un start_id hasta el vertice key siguiendo el algoritmo  Bellman Ford.
 Bellman_Ford<char, int>* bellF = new Bellman_Ford<char, int>(graph, "A");
-bellF->apply();
+unordered_map<std::string, list<string>> result = bellF->apply();
 bellF->display();
 
 //Given the graph
 DirectedGraph<char, int> *graph = new DirectedGraph<char, int>; 
 
-//7- Floyd Warshall 
+//7- Genera una matriz de distancias minimas para cada destino posible utilizando el algortimo Floyd Warshall.
 floyd_warshall<char, int>* floyd = new floyd_warshall<char, int>(graph);
 floyd->display();
 
@@ -106,42 +106,14 @@ floyd->display();
 
 ### Methods:
 ```cpp
-void clear(); // Clears parser saved atributes
+void clear(); // Limpia los atributos del parser
 
-void readJSON(); // Parses JSON file and saves data into class
-// NOTE: each derived class has its own readJSON method
+void readJSON(string pathFile); // lee un archivo json y lo almacena en la clase
 
-void uGraphMake(UndirectedGraph<string, double> &tempGraph); // Adds the parsed data into the specified undirected graph
+void uGraphMake(UndirectedGraph<string, double> &tempGraph); // Convierte el json interpretado a un grafo no dirigido
 
-void dGraphMake(DirectedGraph<string, double> &tempGraph); // Adds the parsed data into the specified directed graph
+void dGraphMake(DirectedGraph<string, double> &tempGraph); // Convierte el json interpretado a un grafo dirigido
+
+unordered_map<string, double> getHeuristic(string id_target) // Retorna un hash con las distancias euclideanadas de cada vertice hacia el vertice objetivo
 ```
 
-## [Git Karma Guidelines](http://karma-runner.github.io/5.2/dev/git-commit-msg.html)
-
-```
-<type>(<scope>): <subject>
-
-<body>
-```
-
-### Allowed ```<type>``` values
-
-* feat (new feature for the user, not a new feature for build script)
-* fix (bug fix for the user, not a fix to a build script)
-* docs (changes to the documentation)
-* style (formatting, missing semi colons, etc)
-* refactor (refactoring production code, eg. renaming a variable)
-* test (adding missing tests, refactoring tests)
-* chore (updating grunt tasks etc)
-
-### Allowed ```<scope>``` values
-
-* graph
-* directedGraph
-* undirectedGraph
-* parser
-* main
-* tester
-
-
-> **PD:** Puntos extras sobre Evaluación Continua si se implementa una GUI.
