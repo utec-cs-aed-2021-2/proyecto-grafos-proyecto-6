@@ -34,40 +34,62 @@ class Parser {
             Json::Reader reader;
             reader.parse(ifs, this->objs);
         }
-        void uGraphMake(UnDirectedGraph<string, double>& graph) {
+        void uGraphMake(UnDirectedGraph<string, double>*& graph) {
 
-            for (Json::Value::ArrayIndex i = 0; i != this->objs.size(); i++){
-                graph.insertVertex(this->objs[i]["Airport ID"].asString(), this->objs[i]["Airport ID"].asString());
-                
-                for (int e = 0; e< this->objs[i]["destinations"].size(); e++) {
+            for (Json::Value::ArrayIndex i = 0; i < this->objs.size(); i++)
+                graph->insertVertex(this->objs[i]["Airport ID"].asString(), this->objs[i]["Airport ID"].asString());
+
+            for (Json::Value::ArrayIndex i = 0; i < this->objs.size(); i++){                
+                for (int e = 0; e < this->objs[i]["destinations"].size(); e++) {
                     double distance;
-                    for (Json::Value::ArrayIndex j = 0; j != this->objs.size(); j++){
-                        if (this->objs[i]["Airport ID"].asString() != this->objs[j]["Airport ID"].asString()) { 
+                    for (Json::Value::ArrayIndex j = 0; j < this->objs.size(); j++){
+                        if (this->objs[j]["Airport ID"].asString() == this->objs[i]["destinations"][e].asString()){
                             distance = calculateDistance(stod(this->objs[i]["Latitude"].asString()), stod(this->objs[i]["Longitude"].asString()),
                                                          stod(this->objs[j]["Latitude"].asString()), stod(this->objs[j]["Longitude"].asString()));
+                            graph->createEdge(this->objs[i]["Airport ID"].asString(), this->objs[j]["Airport ID"].asString(), distance);
+                            break;
                         }
                     }
-                    
-                    graph.createEdge(this->objs[i]["Airport ID"].asString(), this->objs[i]["destinations"][e].asString(), distance);
                 }
             }
         }
-        void dGraphMake(DirectedGraph<string, double>& graph) {
+        void dGraphMake(DirectedGraph<string, double>*& graph) {
+            for (Json::Value::ArrayIndex i = 0; i < this->objs.size(); i++)
+                graph->insertVertex(this->objs[i]["Airport ID"].asString(), this->objs[i]["Airport ID"].asString());
 
-            for (Json::Value::ArrayIndex i = 0; i != this->objs.size(); i++){
-                graph.insertVertex(this->objs[i]["Airport ID"].asString(), this->objs[i]["Airport ID"].asString());
-                
-                for (int e = 0; e< this->objs[i]["destinations"].size(); e++) {
+            for (Json::Value::ArrayIndex i = 0; i < this->objs.size(); i++){                
+                for (int e = 0; e < this->objs[i]["destinations"].size(); e++) {
                     double distance;
-                    for (Json::Value::ArrayIndex j = 0; j != this->objs.size(); j++){
-                        if (this->objs[i]["Airport ID"].asString() == this->objs[j]["Airport ID"].asString())
+                    for (Json::Value::ArrayIndex j = 0; j < this->objs.size(); j++){
+                        if (this->objs[j]["Airport ID"].asString() == this->objs[i]["destinations"][e].asString()){
                             distance = calculateDistance(stod(this->objs[i]["Latitude"].asString()), stod(this->objs[i]["Longitude"].asString()),
                                                          stod(this->objs[j]["Latitude"].asString()), stod(this->objs[j]["Longitude"].asString()));
+                            graph->createEdge(this->objs[i]["Airport ID"].asString(), this->objs[j]["Airport ID"].asString(), distance);
+                            break;
+                        }
                     }
-                    
-                    graph.createEdge(this->objs[i]["Airport ID"].asString(), this->objs[i]["destinations"][e].asString(), distance);
                 }
             }
+        }
+        unordered_map<string, double> getHeuristic(string id_target) {
+            unordered_map<string, double> heuristic;
+            double target_lat = 0.0;
+            double target_lon = 0.0;
+            for (Json::Value::ArrayIndex i = 0; i != this->objs.size(); i++){
+                if (this->objs[i]["Airport ID"].asString() == id_target){
+                    target_lat = stod(this->objs[i]["Latitude"].asString());
+                    target_lon = stod(this->objs[i]["Longitude"].asString());
+                    break;
+                }
+            }
+            for (Json::Value::ArrayIndex i = 0; i != this->objs.size(); i++){
+                if (this->objs[i]["Airport ID"].asString() != id_target){
+                    double distance = calculateDistance(stod(this->objs[i]["Latitude"].asString()), stod(this->objs[i]["Longitude"].asString()),
+                                                        target_lat, target_lon);
+                    heuristic[this->objs[i]["Airport ID"].asString()] = distance;
+                }
+            }
+            return heuristic;
         }
 
     private:

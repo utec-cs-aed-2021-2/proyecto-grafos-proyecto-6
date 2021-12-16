@@ -45,6 +45,11 @@ bool DirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w) {
     if (!this->findById(id1) || !this->findById(id2) ){ 
         return false;
     }
+    /*
+    for(auto& edge : this->vertexes[id1]->edges) {
+        if (edge->vertexes[0]->id == id1 && edge->vertexes[1]->id == id2)
+            return false;
+    }*/
         
 
     Edge<TV, TE>* newEdge = new Edge<TV, TE>;
@@ -200,9 +205,9 @@ void DirectedGraph<TV, TE>::display() {
         cout<<"Data: " << (*it).second->data <<endl;
         cout<<"Edges: { ";
         list<Edge<TV, TE>*> edges = (*it).second->edges;
-        for (auto it = edges.begin(); it!=edges.end(); it++) {
-            cout<<"("<< (*it)->vertexes[0]->id <<", "<< (*it)->vertexes[1]->id << "), ";
-        }
+        for (auto it = edges.begin(); it!=edges.end(); it++)
+            cout<<"("<< (*it)->vertexes[0]->id <<", "<< (*it)->vertexes[1]->id  <<", "<< (*it)->weight<< "), ";
+        
         cout<<" }"<<endl;
         cout<<endl;
     }

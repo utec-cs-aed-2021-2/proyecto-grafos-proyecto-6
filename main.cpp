@@ -6,6 +6,8 @@
 #include "Graph/Algorithms/kruskal.h"
 #include "Graph/Algorithms/prim.h"
 #include "Graph/Algorithms/astar.h"
+#include "Graph/Algorithms/bell.h"
+#include "Graph/Algorithms/floyd.h"
 //#include "Tester/tester.h"
 #include "Parser/parser.h"
 
@@ -142,15 +144,14 @@ int main(int argc, char *argv[]) {
     else cout<<"No";
     cout << endl;
 
-/*
-    cout<<"Gaaa"<<endl;
+
+ 
     Parser newParser = Parser();
     
-    UnDirectedGraph<string, double> airportGraph = UnDirectedGraph<string, double>();
+    DirectedGraph<string, double>* airportGraph = new DirectedGraph<string, double>();
     newParser.readJSON("./Parser/Data/pe.json");
-    newParser.uGraphMake(airportGraph);
-    airportGraph.display();
-*/
+    newParser.dGraphMake(airportGraph);
+
 
     cout <<"\n\n\n"<<endl;
 
@@ -158,7 +159,9 @@ int main(int argc, char *argv[]) {
     cout << "A STAR"<<endl;
     cout << "================================================" <<endl;
 
-    Graph<int, float> *ugraph = new UnDirectedGraph<int, float>;
+/*
+    Graph<int, double> *ugraph = new UnDirectedGraph<int, double>;
+
     //Creación del Grafo
     ugraph->insertVertex("A", 0);
     ugraph->insertVertex("B", 1);
@@ -187,7 +190,7 @@ int main(int argc, char *argv[]) {
     ugraph->createEdge("H", "F", 7);
 
 
-    unordered_map<string, float> heuristic;
+    unordered_map<string, double> heuristic;
         heuristic["A"] = 10;
         heuristic["B"] = 8;
         heuristic["C"] = 5;
@@ -198,11 +201,54 @@ int main(int argc, char *argv[]) {
         heuristic["H"] = 3;
         heuristic["I"] = 1;
         heuristic["J"] = 0;
+*/
+    //Astar<string, double>* AStar = new Astar<string, double>(airportGraph,"2796","2812", newParser.getHeuristic("2812"));
 
-    Astar<int, float>* AStar = new Astar<int, float>(ugraph,"A","J", heuristic);
+    //AStar->display_path();
 
-    AStar->display_path();
+    //AStar->apply()->display();
+/*
+    Graph<int, int> *dgraph_ = new DirectedGraph<int, int>;
 
-    AStar->apply()->display();
+    //Creación del Grafo
+    dgraph_->insertVertex("0", 0);
+    dgraph_->insertVertex("1", 1);
+    dgraph_->insertVertex("2", 2);
+    dgraph_->insertVertex("3", 3);
+    dgraph_->insertVertex("4", 4);
+
+    dgraph_->createEdge("0", "1", -1);
+    dgraph_->createEdge("0", "2", 4);
+    dgraph_->createEdge("1", "2", 3);
+    dgraph_->createEdge("1", "3", 2);
+    dgraph_->createEdge("1", "4", 2);
+    dgraph_->createEdge("3", "2", 5);
+    dgraph_->createEdge("3", "1", 1);
+    dgraph_->createEdge("4", "3", -3);
+*/
+    cout <<"\n\n\n"<<endl;
+
+    cout << "================================================" <<endl;
+    cout << "FLOYD WARSHALL"<<endl;
+    cout << "================================================" <<endl;
+
+    DirectedGraph<int, int> *graph = new DirectedGraph<int, int>;
+    //Creación del Grafo
+    graph->insertVertex("0", 0);
+    graph->insertVertex("1", 1);
+    graph->insertVertex("2", 2);
+    graph->insertVertex("3", 3);
+
+    graph->createEdge("0", "3", 10);
+    graph->createEdge("0", "1", 5);
+    graph->createEdge("1", "2", 3);
+    graph->createEdge("2", "3", 1);
+
+    floyd_warshall<int, int>* floyd = new floyd_warshall<int, int>(graph);
+    floyd->display();
+
+
+
+
     return EXIT_SUCCESS;
 }
