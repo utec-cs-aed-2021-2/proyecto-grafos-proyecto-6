@@ -138,7 +138,7 @@ DirectedGraph<char, int> *graph = new DirectedGraph<char, int>;
 floyd_warshall<char, int>* floyd = new floyd_warshall<char, int>(graph);
 floyd->display();
 
-//8- Genera un hash donde el key es el id de cada vertice y cada key apunta al costo que toma llegar desde vertice start_id hasta cada uno de los vertices del grafo siguiendo el algoritmo  Dijkstra.
+//8- Genera un hash donde el key es el id de cada vertice y cada key apunta al costo que toma llegar desde vertice start_id hasta cada uno de los vertices del grafo siguiendo el algoritmo  Dijkstra (solo para grafos dirigidos)
 Dijkstra<char,int>* dijkstra = new Dijkstra<char, int>(dgraph,"A");
 dijkstra->apply();
 dijkstra->display();
@@ -208,3 +208,22 @@ $ ./<output_name_file>
 # Donde:
 #   output_name_file : nombre del archivo con el que se generará el ejecutable
 ```
+
+## Resultados obtenidos
+
+A continuación se muestran gráficamente los resultados obtenidos para algunos de los algorimos, empleando grafos precargados.
+
+### Best First Search
+![](img/BestFS.png)
+
+### Breadth First Search
+![](img/BFS.png)
+
+### Dijkstra
+![](img/dijstra.png)
+
+### A*
+![](img/A.png)
+
+### Prim
+![](img/PRIM.png)
