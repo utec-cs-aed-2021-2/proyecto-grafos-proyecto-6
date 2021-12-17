@@ -169,7 +169,7 @@ $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/maste
 $ brew install jsoncpp
 ```
 
-### Wndows 10
+### Windows 10
 Antes de instalar el paquete, se debe tene [vcpkg](https://github.com/Microsoft/vcpkg/)
 ```
 $ git clone https://github.com/Microsoft/vcpkg.git
