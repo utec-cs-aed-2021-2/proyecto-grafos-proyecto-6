@@ -9,6 +9,8 @@
 template <typename TV, typename TE>
 class Bellman_Ford {
 public:
+
+    TE MAX_VALUE = std::numeric_limits<TE>::max();
     Graph<TV, TE> *graph;
     std::unordered_map<std::string, Vertex<TV, TE> *> vertexes;
     string start_id;
@@ -25,7 +27,6 @@ public:
         int V = vertexes.size();
         unordered_map<std::string, TE> dist;
         unordered_map<std::string, list<string>> path;
-        TE MAX_VALUE = std::numeric_limits<TE>::max();
         for (auto& v : vertexes){
             dist[v.first] = MAX_VALUE;
             list<string> temp;
@@ -60,7 +61,9 @@ public:
     void display() {
         cout<<"id   "<<"distance    "<<"path"<<endl;
         for (auto& d : this->distances) {
-            cout<< d.first <<" : "<< d.second <<" : ";
+            cout<< d.first <<" : ";if (d.second == MAX_VALUE)
+                    cout<< "INF: ";
+                else cout<<d.second <<" : ";
 
             for (auto& p : this->paths[d.first]) 
                 cout<< p <<", ";

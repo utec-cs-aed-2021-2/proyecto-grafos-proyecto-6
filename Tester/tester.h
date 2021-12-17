@@ -92,7 +92,7 @@ int opcion;
                     case 5: {
                         cout << "BFS" <<endl;
                         cout << "----" <<endl;
-                        BFS<string,double> bfs(airportGraph,"2796");
+                        BFS<string,double> bfs(airportGraph,"2789");
                         auto resultBFS = bfs.apply_bfs();
                         for(auto it : resultBFS){
                             cout << it->id << " ";
@@ -102,7 +102,7 @@ int opcion;
                     case 6: {
                         cout << "DFS" <<endl;
                         cout << "----" <<endl;
-                        DFS<string,double> dfs(airportGraph,"2796");
+                        DFS<string,double> dfs(airportGraph,"2789");
                         auto resultDFS = dfs.apply_dfs();
                         for(auto it : resultDFS){
                             cout << it->id << " ";
@@ -123,7 +123,7 @@ int opcion;
                     case 9: {
                         cout << "A*" <<endl;
                         cout << "---" <<endl;
-                        Astar<string,double>* astar = new Astar<string,double>(airportGraph, "2796", "2812", newParser.getHeuristic("2812"));
+                        Astar<string,double>* astar = new Astar<string,double>(airportGraph, "2789", "2812", newParser.getHeuristic("2812"));
                         astar->display_path();
                         break;
                     }
@@ -131,7 +131,7 @@ int opcion;
                         cout << "Bellman" <<endl;
                         cout << "--------" <<endl;
                         
-                        Bellman_Ford<string,double>* bell_ford = new Bellman_Ford<string, double>(airportGraph,"2812");
+                        Bellman_Ford<string,double>* bell_ford = new Bellman_Ford<string, double>(airportGraph,"2789");
                         bell_ford->apply();
                         bell_ford->display();
                         break;
@@ -146,7 +146,7 @@ int opcion;
                     case 12: {
                         cout << "Best BFS" <<endl;
                         cout << "----------" <<endl;
-                        BestFirstSearch<string,double>* best= new BestFirstSearch<string, double>(airportGraph,"2796","2812");
+                        BestFirstSearch<string,double>* best= new BestFirstSearch<string, double>(airportGraph,"2789","2812");
                         best->apply();
                         best->display();
                         break;
@@ -154,7 +154,7 @@ int opcion;
                     case 13: {
                         cout << "Dijkstra" <<endl;
                         cout << "----------" <<endl;
-                        Dijkstra<string,double>* dijkstra = new Dijkstra<string, double>(airportGraph,"2812");
+                        Dijkstra<string,double>* dijkstra = new Dijkstra<string, double>(airportGraph,"2789");
                         dijkstra->apply();
                         dijkstra->display();
                         break;
@@ -235,7 +235,7 @@ int opcion;
                     case 5: {
                         cout << "BFS" <<endl;
                         cout << "----" <<endl;
-                        BFS<string,double> bfs(airportGraph1,"3448");
+                        BFS<string,double> bfs(airportGraph1,"2789");
                         auto resultBFS = bfs.apply_bfs();
                         for(auto it : resultBFS){
                             cout << it->id << " ";
@@ -245,7 +245,7 @@ int opcion;
                     case 6: {
                         cout << "DFS" <<endl;
                         cout << "----" <<endl;
-                        DFS<string,double> dfs(airportGraph1,"3536");
+                        DFS<string,double> dfs(airportGraph1,"2789");
                         auto resultDFS = dfs.apply_dfs();
                         for(auto it : resultDFS){
                             cout << it->id << " ";
@@ -267,7 +267,7 @@ int opcion;
                     case 9: {
                         cout << "A*" <<endl;
                         cout << "---" <<endl;
-                        Astar<string,double>* astar = new Astar<string,double>(airportGraph1, "3830", "5422", newParser1.getHeuristic("5422"));
+                        Astar<string,double>* astar = new Astar<string,double>(airportGraph1, "2789", "5422", newParser1.getHeuristic("5422"));
                         astar->display_path();
                         break;
                     }
@@ -275,7 +275,7 @@ int opcion;
                         cout << "Bellman" <<endl;
                         cout << "--------" <<endl;
                         
-                        Bellman_Ford<string,double>* bell_ford = new Bellman_Ford<string, double>(airportGraph1,"3830");
+                        Bellman_Ford<string,double>* bell_ford = new Bellman_Ford<string, double>(airportGraph1,"2789");
                         bell_ford->apply();
                         bell_ford->display();
                         break;
@@ -290,7 +290,7 @@ int opcion;
                     case 12: {
                         cout << "Best BFS" <<endl;
                         cout << "----------" <<endl;
-                        BestFirstSearch<string,double>* best= new BestFirstSearch<string, double>(airportGraph1,"3830","5422");
+                        BestFirstSearch<string,double>* best= new BestFirstSearch<string, double>(airportGraph1,"2789","5422");
                         best->apply();
                         best->display();
                         break;
@@ -298,7 +298,7 @@ int opcion;
                     case 13: {
                         cout << "Dijkstra" <<endl;
                         cout << "----------" <<endl;
-                        Dijkstra<string,double>* dijkstra = new Dijkstra<string, double>(airportGraph1,"3830");
+                        Dijkstra<string,double>* dijkstra = new Dijkstra<string, double>(airportGraph1,"2789");
                         dijkstra->apply();
                         dijkstra->display();
                     }
@@ -362,7 +362,7 @@ void EjemploNoDirigido(){
             udgraph1->insertVertex("H", 7);
 
             udgraph1->createEdge("A", "B", 2);
-            udgraph1->createEdge("H", "F", 1);
+            udgraph1->createEdge("A", "F", 1);
             udgraph1->createEdge("B", "C", 2);
             udgraph1->createEdge("B", "D", 2);
             udgraph1->createEdge("D", "F", 3);
@@ -477,6 +477,7 @@ void EjemploNoDirigido(){
                             heuristic["E"] = 3;
                             heuristic["F"] = 6;
                             heuristic["G"] = 5;
+                            heuristic["H"] = 10;
                         Astar<char,int>* astar = new Astar<char,int>(udgraph1, "A", "H", heuristic);
                         astar->display_path();
                         break;
