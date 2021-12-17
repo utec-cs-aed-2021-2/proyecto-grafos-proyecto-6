@@ -362,13 +362,18 @@ void EjemploNoDirigido(){
             udgraph1->insertVertex("H", 7);
 
             udgraph1->createEdge("A", "B", 2);
-            udgraph1->createEdge("B", "D", 1);
-            udgraph1->createEdge("B", "F", 8);
-            udgraph1->createEdge("F", "H", 9);
-            udgraph1->createEdge("G", "E", 4);
-            udgraph1->createEdge("E", "C", 6);
-            udgraph1->createEdge("C", "A", 3);
-            udgraph1->createEdge("D", "G", 10);
+            udgraph1->createEdge("H", "F", 1);
+            udgraph1->createEdge("B", "C", 2);
+            udgraph1->createEdge("B", "D", 2);
+            udgraph1->createEdge("D", "F", 3);
+            udgraph1->createEdge("D", "E", 4);
+            udgraph1->createEdge("B", "E", 4);
+            udgraph1->createEdge("F", "G", 5);
+            udgraph1->createEdge("C", "E", 3);
+            udgraph1->createEdge("E", "G", 7);
+            udgraph1->createEdge("C", "H", 1);
+            udgraph1->createEdge("H", "G", 3);
+
             int opcion;
             do{
                 cout <<"\n-------------------------"<<endl;
@@ -428,7 +433,7 @@ void EjemploNoDirigido(){
                     case 5: {
                         cout << "BFS" <<endl;
                         cout << "----" <<endl;
-                        BFS<char,int> bfs(udgraph1,"H");
+                        BFS<char,int> bfs(udgraph1,"A");
                         auto resultBFS = bfs.apply_bfs();
                         for(auto it : resultBFS){
                             cout << it->id << " ";
@@ -438,7 +443,7 @@ void EjemploNoDirigido(){
                     case 6: {
                         cout << "DFS" <<endl;
                         cout << "----" <<endl;
-                        DFS<char,int> dfs(udgraph1,"H");
+                        DFS<char,int> dfs(udgraph1,"A");
                         auto resultDFS = dfs.apply_dfs();
                         for(auto it : resultDFS){
                             cout << it->id << " ";
@@ -456,7 +461,7 @@ void EjemploNoDirigido(){
                     case 8: {
                         cout << "Prim" <<endl;
                         cout << "-----" <<endl;
-                        Prim<char,int> prim(udgraph1, "H");
+                        Prim<char,int> prim(udgraph1, "A");
                         UnDirectedGraph<char,int> resultPrim = prim.apply();
                         resultPrim.display();
                         break;
@@ -472,7 +477,7 @@ void EjemploNoDirigido(){
                             heuristic["E"] = 3;
                             heuristic["F"] = 6;
                             heuristic["G"] = 5;
-                        Astar<char,int>* astar = new Astar<char,int>(udgraph1, "H", "E", heuristic);
+                        Astar<char,int>* astar = new Astar<char,int>(udgraph1, "A", "H", heuristic);
                         astar->display_path();
                         break;
                     }
@@ -492,7 +497,7 @@ void EjemploNoDirigido(){
                     case 12: {
                         cout << "Best BFS" <<endl;
                         cout << "----------" <<endl;
-                        BestFirstSearch<char,int>* best= new BestFirstSearch<char, int>(udgraph1,"H","E");
+                        BestFirstSearch<char,int>* best= new BestFirstSearch<char, int>(udgraph1,"A","H");
                         best->apply();
                         best->display();
                         break;
