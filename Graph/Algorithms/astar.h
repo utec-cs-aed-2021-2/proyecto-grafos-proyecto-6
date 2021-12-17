@@ -26,7 +26,7 @@ private:
     UnDirectedGraph<TV,TE>* Fgraph;
     map<string, string> parents;
 public:
-        Astar(UnDirectedGraph<TV,TE>* graph, string start_id, string end_id, unordered_map<string,TE> heuristic){
+        Astar(Graph<TV,TE>* graph, string start_id, string end_id, unordered_map<string,TE> heuristic){
 
             std::priority_queue<pair<Vertex<TV,TE>*, TE>,vector<pair<Vertex<TV,TE>*,TE>>, cmp<TV,TE>> openSet;
             std::unordered_set<string> openSet1;

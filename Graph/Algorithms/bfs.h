@@ -2,18 +2,28 @@
 #define BFS_H
 
 #include "../graph.h"
+#include "../DirectedGraph.h"
+#include "../UndirectedGraph.h"
 #include <queue>
 template <typename TV, typename TE>
 class BFS
 {
 public:
-    Graph<TV, TE> *graph;
+    UnDirectedGraph<TV, TE> *graph1;
+    DirectedGraph<TV, TE> *graph2;
     std::unordered_map<std::string, Vertex<TV, TE> *> vertexes;
     string start_id;
-    BFS(Graph<TV, TE> *graph, string id)
+    BFS(UnDirectedGraph<TV, TE> *graph, string id)
     {
-        vertexes = graph->getVertexes(graph);
-        this->graph = graph;
+        vertexes = graph1->getVertexes(graph);
+        this->graph1 = graph;
+        this->start_id = id;
+    };
+
+    BFS(DirectedGraph<TV, TE> *graph, string id)
+    {
+        vertexes = graph2->getVertexes(graph);
+        this->graph2 = graph;
         this->start_id = id;
     };
 

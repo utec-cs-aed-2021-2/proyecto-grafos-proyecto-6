@@ -23,8 +23,8 @@ class Kruskal {
         vector< pair<TE, Edge<TV, TE>*> > edges;
 
 
-        Kruskal(UnDirectedGraph<TV, TE>& graph) {
-            this->graph = &graph;
+        Kruskal(UnDirectedGraph<TV, TE>* graph) {
+            this->graph = graph;
             this->MSTgraph = new UnDirectedGraph<TV, TE>;
 
             vector<Vertex<TV, TE>*> vertexes;

@@ -30,16 +30,16 @@ class Prim {
         Vertex<TV, TE>* minKey(unordered_map<Vertex<TV, TE>*, TE> key, unordered_map<Vertex<TV, TE>*, bool> mstSet) ;
 
     public:
-        Prim(UnDirectedGraph<TV, TE>& Graph, string nodeSource);
+        Prim(UnDirectedGraph<TV, TE>* Graph, string nodeSource);
         UnDirectedGraph<TV, TE> apply();
 };
 
 template <typename TV, typename TE>
-Prim<TV, TE>::Prim(UnDirectedGraph<TV, TE>& Graph, string nodeSource) 
+Prim<TV, TE>::Prim(UnDirectedGraph<TV, TE>* Graph, string nodeSource) 
 {
-    this->Graph = Graph;
+    this->Graph = *Graph;
     this->nodeSource = nodeSource;
-    this->srcVertex = Graph.findVertex(nodeSource);
+    this->srcVertex = Graph->findVertex(nodeSource);
     // cout << "Prim init" << endl;
 }
 
