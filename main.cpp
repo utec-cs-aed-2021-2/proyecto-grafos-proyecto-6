@@ -1,17 +1,15 @@
 #include <iostream>
-
 #include "Tester/tester.h"
 #include "Parser/parser.h"
 
 using namespace std;
 
 int main(int argc, char *argv[]) {
-    std::cout << "================================================" << std::endl;
-    std::cout << "MENU GRAPH TESTER" << std::endl;
-    std::cout << "================================================" << std::endl;
+    cout << "================================================" <<endl;
+    cout << "MENU GRAPH TESTER" << std::endl;
+    cout << "================================================" <<endl;
     
-    Tester::executeExamples();
-    Tester::executeParser();
-    
+    Tester::Menu();
+
     return EXIT_SUCCESS;
 }
